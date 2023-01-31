@@ -5,11 +5,11 @@
       <h1 v-else>Login</h1>
     </div>
     
-    <div class="text-left p-1 rounded text-2xl">
-      <p v-if="errorText" class="text-center bg-red-500 rounded-lg mb-2">
+    <div class="text-left p-1 rounded text-2xl" >
+      <p v-if="errorText" :class="{ shake: disabled }" class="text-center bg-red-500 rounded-lg mb-2">
         <b>{{ errorText }}</b>
-      </p> 
-      <form @submit.prevent @keydown.enter="$event.preventDefault()" v-if="!this.switch">
+      </p>
+      <form @submit.prevent @keydown.enter="$event.preventDefault()" v-if="!this.switch" >
         <input type="hidden" name="_token" :value="csrf" />
 
         <label class="label-form">First Name</label>
@@ -74,6 +74,7 @@ export default {
       display: true,
       confirmationDisplay: false,
       switch: false,
+      disabled: false,
     };
   },
 
@@ -86,49 +87,57 @@ export default {
         !this.password ||
         !this.phonenumber
       ) {
-        return (this.errorText = "Missing Fields");
+        this.warnDisabled()
+        return (this.errorText = "Missing Fields")
       } else {
-        this.errorText = "";
+        this.errorText = ""
       }
       if (!this.terms){
+        this.warnDisabled()
         return (this.errorText = "Accept terms of service");
       } else {
-        this.errorText = "";
+        this.errorText = ""
       }
 
       if (this.password.length <= 7 || this.password.length >= 60) {
-        return (this.errorText = "Password Length Incorrect");
+        this.warnDisabled()
+        return (this.errorText = "Password Length Incorrect")
       } else {
-        this.errorText = "";
+        this.errorText = ""
       }
       if (this.firstname.length > 150 || this.lastname.length > 150) {
-        return (this.errorText = "One of the names are too long");
+        this.warnDisabled()
+        return (this.errorText = "One of the names are too long")
       } else {
-        this.errorText = "";
+        this.errorText = ""
       }
       if (!/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(this.email)) {
-        return (this.errorText = "Email not valid");
+        this.warnDisabled()
+        return (this.errorText = "Email not valid")
       } else {
-        this.errorText = "";
+        this.errorText = ""
       }
       if (this.email.length >= 319) {
-        return (this.errorText = "Email too long");
+        this.warnDisabled()
+        return (this.errorText = "Email too long")
       } else {
-        this.errorText = "";
+        this.errorText = ""
       }
       if (
         !/^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/.test(
           this.phonenumber
         )
       ) {
-        return (this.errorText = "Phone number not valid");
+        this.warnDisabled()
+        return (this.errorText = "Phone number not valid")
       } else {
-        this.errorText = "";
+        this.errorText = ""
       }
       if (this.phonenumber.length > 15) {
+        this.warnDisabled()
         return (this.errorText = "Phone number is too long");
       } else {
-        this.errorText = "";
+        this.errorText = ""
       }
 
       if (!this.errorText) {
@@ -161,10 +170,10 @@ export default {
     },
     checkFormLogin() {
       if (!this.email || !this.password) {
-        
-        return (this.errorText = "Missing Fields");
+        this.warnDisabled()
+        return (this.errorText = "Missing Fields")
       } else {
-        this.errorText = "";
+        this.errorText = ""
       }
       if (!this.errorText) {
         let currentObj = this;
@@ -191,13 +200,44 @@ export default {
     },
     switchForm() {
       this.switch = !this.switch;
+    },
+    warnDisabled() {
+      this.disabled = true
+      setTimeout(() => {
+        this.disabled = false
+      }, 1500)
     }
   },
 };
 </script>
 
 <style>
+.shake {
+  animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  transform: translate3d(0, 0, 0);
+}
 
+@keyframes shake {
+  10%,
+  90% {
+    transform: translate3d(-1px, 0, 0);
+  }
 
+  20%,
+  80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%,
+  50%,
+  70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%,
+  60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
 
 </style>
