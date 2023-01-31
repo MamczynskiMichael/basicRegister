@@ -16,7 +16,6 @@
     <br>
     <button @click="decline" class="input-form btn-submit inline rounded-xl">Home</button>
   </div>
- <!--  <div >You already entered today {{entry}}<button @click="decline">Go To Home Page</button></div> -->
 </div>
 </template>
 
