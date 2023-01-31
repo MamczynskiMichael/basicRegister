@@ -1,0 +1,21 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+    .label-form {
+        @apply inline-block mx-1 font-semibold;
+    }
+    .input-form {
+        @apply block p-2 w-max box-border border-solid border-b-2 border-slate-500 bg-transparent text-white; 
+    }
+    .btn-submit {
+        @apply text-black block mt-2 rounded-full bg-blue-300 border-b-0 focus:border-b-2 hover:bg-blue-400 focus:border-black ;
+    }
+    .gradient-button {
+        @apply bg-gradient-to-r from-blue-100 via-blue-300 to-blue-500     hover:bg-gradient-to-r hover:from-blue-200 hover:via-blue-400 hover:to-blue-500;
+    }
+    .gradient-form {
+        @apply bg-gradient-to-t from-gray-200 via-gray-400 to-gray-600;
+    }
+  }
