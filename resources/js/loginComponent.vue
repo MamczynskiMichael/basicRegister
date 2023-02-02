@@ -1,6 +1,6 @@
 <template>
   <div v-if="display" class="gradient-form max-w-md text-center m-auto flex flex-col items-center justify-center h-screen">
-    <div class="text-4xl font-bold underline mb-5 ">
+    <div class="text-3xl font-bold underline mb-5 ">
       <h1 v-if="!this.switch">Create an account</h1>
       <h1 v-else>Login</h1>
     </div>
