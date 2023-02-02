@@ -6,9 +6,10 @@
     </div>
     
     <div class="text-left p-1 rounded text-2xl" >
-      <p v-if="errorText" :class="{ shake: disabled }" class="text-center bg-red-500 rounded-lg mb-2">
+      <p v-if="errorText" :class="{ shake: disabled }" class="text-center bg-red-500 rounded-lg mb-2 p-1">
         <b>{{ errorText }}</b>
       </p>
+      <transition name="fade"> 
       <form @submit.prevent @keydown.enter="$event.preventDefault()" v-if="!this.switch" >
         <input type="hidden" name="_token" :value="csrf" />
 
@@ -36,7 +37,7 @@
           <p class="text-sm italic mt-5" @click="switchForm()">Already have an account? <span class="btn-submit inline p-1">Login</span></p>
         </div>
       </form>
-      <form @submit.prevent @keydown.enter="$event.preventDefault()" v-if="this.switch">
+      <form @submit.prevent @keydown.enter="$event.preventDefault()" v-else>
         <input class="input-form" type="hidden" name="_token" :value="csrf" />
         <label class="label-form">Email</label>
         <input class="input-form" type="email" v-model="email" />
@@ -48,6 +49,7 @@
           <p class="text-sm italic mt-5" @click="switchForm()">Need an account? <span class="btn-submit inline p-1">Register</span></p>
         </div>
       </form>
+      </transition>
     </div>
   </div>
 
@@ -190,7 +192,7 @@ export default {
               currentObj.display = false;
               currentObj.confirmationDisplay = true;
             } else {
-              currentObj.errorText = "Some thing went wrong. Try again."
+              currentObj.errorText = "Incorrect Fields."
             }
           })
           .catch(function (error) {
@@ -206,7 +208,7 @@ export default {
       setTimeout(() => {
         this.disabled = false
       }, 1500)
-    }
+    },    
   },
 };
 </script>
@@ -216,7 +218,6 @@ export default {
   animation: shake 0.82s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   transform: translate3d(0, 0, 0);
 }
-
 @keyframes shake {
   10%,
   90% {
@@ -239,5 +240,18 @@ export default {
     transform: translate3d(4px, 0, 0);
   }
 }
+.fade-enter-active {
+  transition: all 0.4s ease-out;
+} 
+.fade-leave-active {
+  display: none;
+}
+.fade-enter-from, .fade-leave-to {
+  opacity: 0;
+  transform: translatex(20px);
+}
+
+
+
 
 </style>
