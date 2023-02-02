@@ -1,3 +1,4 @@
+### The Application ###
 This is a small sweepstakes application
 - Backend build with Laravel
 - A form collects
@@ -15,7 +16,7 @@ This is a small sweepstakes application
 - Users can only access the internal site once  day
 - A user must confirm to enter the site
 - The page is styled in Tailwind
-- The site uses vue to handle the frontend
+- The site uses vue to handle the frontend and animations
 
 ### Setup ###
 - Run `composer install` to install backend packages
